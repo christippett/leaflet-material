@@ -77,7 +77,7 @@
 <script src="leaflet-material.min.js"></script>
 <script>
   L.mapbox.accessToken = 'pk.eyJ1IjoiY3RpcHBldHQiLCJhIjoiS3lpTnN4MCJ9.YG_uH8r7IgwgcSWEPYROMA';
-  var map = L.mapbox.map('map', null ,{zoomControl: false, attributionControl: true})
+  var map = L.mapbox.map('map', null ,{zoomControl: false, attributionControl: false})
       .setView([38.8922,-77.0348], 14);
 
   var layers = {
@@ -113,7 +113,7 @@
   var materialFullscreen = new L.Control.MaterialFullscreen({position: 'topright', materialOptions: materialOptions }).addTo(map);
 
   // Material layer control:
-  var materialLayerControl = new L.Control.MaterialLayers(layers, overlays, {position: 'topright', materialOptions: materialOptions}).addTo(map);
+  var materialLayerControl = new L.Control.MaterialLayers(layers, overlays, {position: 'bottomleft', materialOptions: materialOptions}).addTo(map);
 
 
 
