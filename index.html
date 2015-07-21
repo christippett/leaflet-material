@@ -78,28 +78,22 @@
 <script>
   L.mapbox.accessToken = 'pk.eyJ1IjoiY3RpcHBldHQiLCJhIjoiS3lpTnN4MCJ9.YG_uH8r7IgwgcSWEPYROMA';
   var map = L.mapbox.map('map', null ,{zoomControl: false, attributionControl: true})
-      .setView([40, -74.50], 9);
+      .setView([38.8922,-77.0348], 14);
 
   var layers = {
-      Streets: L.mapbox.tileLayer('mapbox.streets'),
-      Outdoors: L.mapbox.tileLayer('examples.ik7djhcc'),
-      Satellite: L.mapbox.tileLayer('examples.map-igb471ik')
+    Streets: L.mapbox.tileLayer('mapbox.streets'),
+    Outdoors: L.mapbox.tileLayer('examples.ik7djhcc'),
+    Satellite: L.mapbox.tileLayer('examples.map-igb471ik')
   };
+  var overlays = {
+    'Bike Stations': L.mapbox.tileLayer('examples.bike-locations'),
+    'Bike Lanes': L.mapbox.tileLayer('examples.bike-lanes')
+  }
   layers.Streets.addTo(map);
-
-  // Zoom control:
-  var zoomControl = new L.Control.Zoom({ position: 'topleft' }).addTo(map);
-
-  // Full screen control
-  var fullscreenControl = new L.Control.Fullscreen().addTo(map);
 
   // Search location (geocode) control
   var geocode = L.mapbox.geocoderControl('mapbox.places');
   map.addControl(geocode);
-
-  // Info control
-  var info = L.mapbox.infoControl();
-  map.addControl(info);
 
   // Layer control (streets, satellite, etc)
   // L.control.layers(layers, null, {position: 'topleft'}).addTo(map);
@@ -119,7 +113,7 @@
   var materialFullscreen = new L.Control.MaterialFullscreen({position: 'topright', materialOptions: materialOptions }).addTo(map);
 
   // Material layer control:
-  var materialLayerControl = new L.Control.MaterialLayers(layers, null, {position: 'topright', materialOptions: materialOptions}).addTo(map);
+  var materialLayerControl = new L.Control.MaterialLayers(layers, overlays, {position: 'topright', materialOptions: materialOptions}).addTo(map);
 
 
 
