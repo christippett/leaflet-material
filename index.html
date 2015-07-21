@@ -91,13 +91,12 @@
   }
   layers.Streets.addTo(map);
 
+  // Set attribution to bottomleft
+  var attribution = L.control.attribution({position: 'bottomleft'}).addTo(map);
+
   // Search location (geocode) control
   var geocode = L.mapbox.geocoderControl('mapbox.places');
   map.addControl(geocode);
-
-  // Layer control (streets, satellite, etc)
-  // L.control.layers(layers, null, {position: 'topleft'}).addTo(map);
-  var layerControl = new L.Control.Layers(layers, null, {position: 'topleft', collapsed: false}).addTo(map);
 
   var materialOptions = {
     miniFab: true,
@@ -113,7 +112,7 @@
   var materialFullscreen = new L.Control.MaterialFullscreen({position: 'topright', materialOptions: materialOptions }).addTo(map);
 
   // Material layer control:
-  var materialLayerControl = new L.Control.MaterialLayers(layers, overlays, {position: 'bottomleft', materialOptions: materialOptions}).addTo(map);
+  var materialLayerControl = new L.Control.MaterialLayers(layers, overlays, {position: 'bottomright', materialOptions: materialOptions}).addTo(map);
 
 
 
