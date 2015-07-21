@@ -1,0 +1,122 @@
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Leaflet Material - Demo</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/leaflet.fullscreen.css' rel='stylesheet'>
+
+<style>
+  #map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '';
+  }
+
+  .leaflet-bar-mdl.leaflet-control {
+    margin: 16px 16px 0 16px;
+  }
+  .leaflet-bar-mdl.leaflet-control button {
+    margin-bottom: 16px;
+    display: block;
+  }
+  @media (min-width: 840px) {
+    .leaflet-bar-mdl.leaflet-control {
+      margin: 24px 24px 0 24px;
+    }
+  }
+
+  .mdl-menu--divider {
+    padding: 0 10px;
+  }
+  .mdl-menu--divider hr {
+    padding: 0.5em;
+  }
+
+  .mdl-menu--bottom-right {
+    margin-top: -40px !important;
+    margin-left: -50px !important;
+    margin-right: 50px !important;
+  }
+  .mdl-menu--bottom-left {
+    margin-top: -40px !important; 
+    margin-left: 50px !important;
+    margin-right: -50px !important;
+  }
+  .mdl-menu--top-left {
+    margin-top: 40px !important; 
+    margin-bottom: -40px !important;
+    margin-left: 50px !important;
+    margin-right: -50px !important;
+  }
+  .mdl-menu--top-right {
+    margin-top: 40px !important; 
+    margin-bottom: -40px !important;
+    margin-left: -50px !important;
+    margin-right: 50px !important;
+  }
+
+</style>
+</head>
+<body>
+<div id='map'></div>
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+<script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/Leaflet.fullscreen.min.js'></script>
+<script src="leaflet-material.min.js"></script>
+<script>
+  L.mapbox.accessToken = 'pk.eyJ1IjoiY3RpcHBldHQiLCJhIjoiS3lpTnN4MCJ9.YG_uH8r7IgwgcSWEPYROMA';
+  var map = L.mapbox.map('map', null ,{zoomControl: false, attributionControl: true})
+      .setView([40, -74.50], 9);
+
+  var layers = {
+      Streets: L.mapbox.tileLayer('mapbox.streets'),
+      Outdoors: L.mapbox.tileLayer('examples.ik7djhcc'),
+      Satellite: L.mapbox.tileLayer('examples.map-igb471ik')
+  };
+  layers.Streets.addTo(map);
+
+  // Zoom control:
+  var zoomControl = new L.Control.Zoom({ position: 'topleft' }).addTo(map);
+
+  // Full screen control
+  var fullscreenControl = new L.Control.Fullscreen().addTo(map);
+
+  // Search location (geocode) control
+  var geocode = L.mapbox.geocoderControl('mapbox.places');
+  map.addControl(geocode);
+
+  // Info control
+  var info = L.mapbox.infoControl();
+  map.addControl(info);
+
+  // Layer control (streets, satellite, etc)
+  // L.control.layers(layers, null, {position: 'topleft'}).addTo(map);
+  var layerControl = new L.Control.Layers(layers, null, {position: 'topleft', collapsed: false}).addTo(map);
+
+  var materialOptions = {
+    miniFab: true,
+    rippleEffect: true,
+    toolTips: true,
+    color: 'lime-A200'
+  }
+
+  // Material zoom control:
+  var materialZoomControl = new L.Control.MaterialZoom({position: 'topright', materialOptions: materialOptions }).addTo(map);
+
+  // Material fullscreen control:
+  var materialFullscreen = new L.Control.MaterialFullscreen({position: 'topright', materialOptions: materialOptions }).addTo(map);
+
+  // Material layer control:
+  var materialLayerControl = new L.Control.MaterialLayers(layers, null, {position: 'topright', materialOptions: materialOptions}).addTo(map);
+
+
+
+</script>
+</body>
+</html>
