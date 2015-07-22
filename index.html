@@ -159,6 +159,7 @@
   map.addControl(geocode);
 
   var materialOptions = {
+    fab: true,
     miniFab: true,
     rippleEffect: true,
     toolTips: true,
@@ -174,7 +175,8 @@
   // Material layer control:
   var materialLayerControl = new L.Control.MaterialLayers(layers, overlays, {position: 'bottomright', materialOptions: materialOptions}).addTo(map);
 
-
+  // Search location (geocode) control
+  var materialGeocodeControl =  new L.Control.MaterialGeocoderControl('mapbox.places', {position: 'topleft', materialOptions: materialOptions}).addTo(map);
 
 </script>
 </body>
