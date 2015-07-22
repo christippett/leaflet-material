@@ -170,21 +170,21 @@
     fab: true,
     miniFab: true,
     rippleEffect: true,
-    toolTips: true,
-    color: 'lime-A200'
+    toolTips: false,
+    color: 'primary'
   }
 
   // Material zoom control:
-  var materialZoomControl = new L.Control.MaterialZoom({position: 'topright', materialOptions: materialOptions }).addTo(map);
+  var materialZoomControl = new L.Control.MaterialZoom({position: 'topright'}).addTo(map);
 
   // Material fullscreen control:
-  var materialFullscreen = new L.Control.MaterialFullscreen({position: 'topright', materialOptions: materialOptions }).addTo(map);
+  var materialFullscreen = new L.Control.MaterialFullscreen({position: 'topright'}).addTo(map);
 
   // Material layer control:
-  var materialLayerControl = new L.Control.MaterialLayers(layers, overlays, {position: 'bottomright', materialOptions: materialOptions}).addTo(map);
+  var materialLayerControl = new L.Control.MaterialLayers(layers, overlays, {position: 'bottomright', materialOptions: materialOptions).addTo(map);
 
   // Search location (geocode) control
-  var materialGeocodeControl =  new L.Control.MaterialGeocoderControl('mapbox.places', {position: 'topleft', materialOptions: materialOptions}).addTo(map);
+  var materialGeocodeControl =  new L.Control.MaterialGeocoderControl('mapbox.places', {position: 'topleft').addTo(map);
 
 </script>
 </body>
