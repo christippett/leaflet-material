@@ -90,7 +90,7 @@
     opacity: 1;
     transition-delay: 0s;
   }
-  .leaflet-control-geocoder-results-mdl a {
+  .leaflet-control-geocoder-results-mdl > * {
     display: block;
     padding: 5px 10px 5px 10px;
   }
@@ -143,15 +143,22 @@
 <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/Leaflet.fullscreen.min.js'></script>
 <script src="leaflet-material.min.js"></script>
 <script>
+  // change default position for attribution to bottom left
+  L.Control.Attribution.prototype.options.position = "bottomleft";
+
+  // initialise map
   L.mapbox.accessToken = 'pk.eyJ1IjoiY3RpcHBldHQiLCJhIjoiS3lpTnN4MCJ9.YG_uH8r7IgwgcSWEPYROMA';
-  var map = L.mapbox.map('map', null ,{zoomControl: false, attributionControl: true})
+  var map = L.mapbox.map('map', null ,{zoomControl: false, attributionControl: false})
       .setView([38.8922,-77.0348], 14);
 
+  // define map layers
   var layers = {
     Streets: L.mapbox.tileLayer('mapbox.streets'),
     Outdoors: L.mapbox.tileLayer('examples.ik7djhcc'),
     Satellite: L.mapbox.tileLayer('examples.map-igb471ik')
   };
+
+  // define map overlays
   var overlays = {
     'Bike Stations': L.mapbox.tileLayer('examples.bike-locations'),
     'Bike Lanes': L.mapbox.tileLayer('examples.bike-lanes')
