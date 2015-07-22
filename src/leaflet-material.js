@@ -179,7 +179,7 @@ L.Control.MaterialLayers = L.Control.Layers.extend({
       TRANSITION_DURATION_FRACTION: 0.8,
       // How long the menu stays open after choosing an option (so the user can see
       // the ripple).
-      CLOSE_TIMEOUT: 400
+      CLOSE_TIMEOUT: 600
     };
 
     // makes this work on IE touch devices by stopping it from firing a mouseout event when the touch is released
@@ -333,35 +333,21 @@ L.Control.MaterialGeocoderControl = L.mapbox.GeocoderControl.extend({
   _closeResults: function() {
     L.DomUtil.removeClass(this._results, 'show-results');
     // have results fade out before removing result elements
-    setTimeout(function() {
-      while (this._results.firstChild) {
-          this._results.removeChild(this._results.firstChild);
-      }
-    }, 200);
+    if (this._results.childNodes.length > 0) {
+      setTimeout(function(results) {
+        while (results.firstChild) {
+            results.removeChild(results.firstChild);
+        };
+      }(this._results), 200);
+    }
   },
   _displayResults: function(features) {
     L.DomUtil.addClass(this._results, 'show-results');
-    for (var i = 0, l = Math.min(features.length, 5); i < l; i++) {
-      var feature = features[i];
-      var name = feature.place_name;
-      if (!name.length) continue;
-
-      var r = L.DomUtil.create('a', '', this._results);
-      var text = ('innerText' in r) ? 'innerText' : 'textContent';
-      r[text] = name;
-      r.href = '#';
-
-      (L.bind(function(feature) {
-        L.DomEvent.addListener(r, 'click', function(e) {
-          this._chooseResult(feature);
-          L.DomEvent.stop(e);
-          this.fire('select', { feature: feature });
-        }, this);
-      }, this))(feature);
-    }
-    if (features.length > 5) {
-      var outof = L.DomUtil.create('span', '', this._results);
-      outof.innerHTML = 'Top 5 of ' + features.length + '  results';
+    if (features.length === 0) {
+      var message = L.DomUtil.create('span', 'no-results-message', this._results);
+      message.innerHTML = 'No results found.';
+    } else {
+      L.mapbox.GeocoderControl.prototype._displayResults.apply(this, [features]);
     }
   },
 });
