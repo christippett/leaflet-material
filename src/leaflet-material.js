@@ -1,4 +1,26 @@
+'use strict';
+
 L.Control.include({
+  defaultMaterialOptions: {
+    fab: true,
+    miniFab: true,
+    rippleEffect: true,
+    toolTips: false,
+    color: 'lime-A200'  
+  },
+  _setDefaultOptions: function () {
+    var materialOptions = {};
+    for (var attrname in this.defaultMaterialOptions) {
+      materialOptions[attrname] = this.defaultMaterialOptions[attrname];
+    };
+
+    if (typeof this.options.materialOptions !== 'undefined') {
+      for (var attrname in this.options.materialOptions) {
+        materialOptions[attrname] = this.options.materialOptions[attrname];
+      }
+    };
+    return materialOptions;
+  },
   _addToolTip: function (el, idTag, toolTipText) {
     var parentNode = el.parentNode,
         toolTipNode = L.DomUtil.create('div', 'mdl-tooltip', parentNode);
@@ -7,26 +29,46 @@ L.Control.include({
 
     return toolTipNode;
   },
-  _createMaterialButton: function (idTag, iconText, title, container, materialOptions, optionalClass) {
+  _createMaterialButton: function (idTag, iconText, title, container, optionalClass) {
     var materialClass = 'mdl-button mdl-js-button mdl-button--icon',
+        materialOptions = this._setDefaultOptions(),
         button = L.DomUtil.create('button', materialClass, container);
     
     this._materialIcon = L.DomUtil.create('i', 'material-icons', button);
     this._materialIcon.innerHTML = iconText;
     button.title = title;
     button.id = idTag;
-    
-    if (materialOptions.miniFab) {
+
+    if (materialOptions.fab) {
       L.DomUtil.removeClass(button, 'mdl-button--icon');
-      L.DomUtil.addClass(button, 'mdl-button--fab'); 
-      L.DomUtil.addClass(button, 'mdl-button--mini-fab'); 
+      L.DomUtil.addClass(button, 'mdl-button--fab');
+      if (materialOptions.miniFab) {
+        L.DomUtil.addClass(button, 'mdl-button--mini-fab'); 
+      }
     }
     if (materialOptions.rippleEffect) {
       L.DomUtil.addClass(button, 'mdl-js-ripple-effect');
     }
     if (materialOptions.color) {
-      var defaultClass = 'mdl-button-colored',
-          colorClass = materialOptions.color === defaultClass ? defaultClass : 'mdl-color--' + materialOptions.color;
+      var colorClass;
+      if (typeof materialOptions.color === "boolean") {
+        colorClass = 'mdl-button--colored';
+      } else {
+        switch (materialOptions.color) {
+          case "colored":
+            colorClass = 'mdl-button--colored';
+            break;
+          case "primary":
+            colorClass = 'mdl-button--primary';
+            break;
+          case "accent":
+            colorClass = "mdl-button--accent";
+            break;
+          default:
+            colorClass = 'mdl-color--' + materialOptions.color;
+        }
+      }
+
       L.DomUtil.addClass(button, colorClass);
     }
     if (optionalClass) {
@@ -46,7 +88,7 @@ L.Control.MaterialFullscreen = L.Control.Fullscreen.extend({
   onAdd: function (map) {
     var container = L.DomUtil.create('div', 'leaflet-control-fullscreen-mdl leaflet-bar-mdl'),
         options = this.options,
-        button = this._createMaterialButton('leaflet-fullscreen-mdl', 'fullscreen', options.title['false'], container, options.materialOptions);
+        button = this._createMaterialButton('leaflet-fullscreen-mdl', 'fullscreen', options.title['false'], container);
 
     this._map = map;
     this._map.on('fullscreenchange', this._toggleTitle, this);
@@ -81,8 +123,8 @@ L.Control.MaterialZoom = L.Control.Zoom.extend({
     options.zoomInText = options.zoomInText === "+" ? 'add' : options.zoomInText;
     options.zoomOutText = options.zoomOutText === "-" ?'remove' : options.zoomInText;
 
-    this._zoomInButton = this._createMaterialButton('leaflet-zoom-in-mdl', options.zoomInText, options.zoomInTitle, container, options.materialOptions);
-    this._zoomOutButton = this._createMaterialButton('leaflet-zoom-out-mdl', options.zoomOutText, options.zoomOutTitle, container, options.materialOptions);
+    this._zoomInButton = this._createMaterialButton('leaflet-zoom-in-mdl', options.zoomInText, options.zoomInTitle, container);
+    this._zoomOutButton = this._createMaterialButton('leaflet-zoom-out-mdl', options.zoomOutText, options.zoomOutTitle, container);
     this._addZoomFunction(this._zoomInButton, this._zoomIn);
     this._addZoomFunction(this._zoomOutButton, this._zoomOut);
 
@@ -173,13 +215,13 @@ L.Control.MaterialLayers = L.Control.Layers.extend({
         break;
     }
 
-    var link = this._layersLink = this._createMaterialButton(buttonId, 'layers', 'Layers', container, this.options.materialOptions);
+    var link = this._layersLink = this._createMaterialButton(buttonId, 'layers', 'Layers', container);
 
     this._baseLayersList = L.DomUtil.create('div', className + '-base', form);
     this._separator = L.DomUtil.create('div', className + '-separator', form);
     this._overlaysList = L.DomUtil.create('div', className + '-overlays', form);
 
-    separatorItem = L.DomUtil.create('li', 'mdl-menu__divider', this._separator);
+    var separatorItem = L.DomUtil.create('li', 'mdl-menu__divider', this._separator);
     separatorItem.innerHTML = '<hr />';
 
     container.appendChild(form);
@@ -244,3 +286,82 @@ L.Control.MaterialLayers = L.Control.Layers.extend({
   },
 });
 
+L.Control.MaterialGeocoderControl = L.mapbox.GeocoderControl.extend({
+  onAdd: function(map) {
+    var container = L.DomUtil.create('div', 'leaflet-control-geocoder-mdl leaflet-bar-mdl leaflet-control'),
+        form = L.DomUtil.create('form', 'geocoder-form', container),
+        textField = L.DomUtil.create('div', 'mdl-textfield mdl-js-textfield mdl-shadow--2dp', form),
+        input = L.DomUtil.create('input', 'mdl-textfield__input', textField),
+        label = L.DomUtil.create('label', 'mdl-textfield__label', textField),
+        icon = L.DomUtil.create('i', 'material-icons', label),
+        clearSearchButton = L.DomUtil.create('button', 'mdl-button mdl-js-button mdl-button--icon clear-search', textField),
+        clearSearchIcon = L.DomUtil.create('i', 'material-icons', clearSearchButton),
+        progressBar = L.DomUtil.create('div', 'mdl-progress mdl-js-progress mdl-progress__indeterminate', textField),
+        results = L.DomUtil.create('div', 'leaflet-control-geocoder-results-mdl mdl-shadow--2dp', container);
+
+
+    icon.innerHTML = 'search';
+    clearSearchIcon.innerHTML = 'close';
+    label.setAttribute('for', 'mapbox-geocoder-mdl')
+    input.setAttribute('id', 'mapbox-geocoder-mdl')
+    input.type = 'text';
+    input.setAttribute('placeholder', 'Search...');
+
+    // L.DomUtil.addClass(results, 'show-results');
+    // this._map.on('click', this._closeResults, this);
+
+    clearSearchButton.type = "button";
+    L.DomEvent.addListener(clearSearchButton, 'click', this._clearSearch, this);
+
+    L.DomEvent.addListener(form, 'submit', this._geocode, this);
+    L.DomEvent.addListener(input, 'keyup', this._autocomplete, this);
+    L.DomEvent.disableClickPropagation(container);
+
+    this._textField = textField;
+    this._map = map;
+    this._results = results;
+    this._input = input;
+    this._form = form;
+
+    return container;
+  },
+  _clearSearch: function() {
+    this._input.value = null;
+    L.DomUtil.removeClass(this._textField, 'is-dirty');
+    this._closeResults();
+  },
+  _closeResults: function() {
+    L.DomUtil.removeClass(this._results, 'show-results');
+    // have results fade out before removing result elements
+    setTimeout(function() {
+      while (this._results.firstChild) {
+          this._results.removeChild(this._results.firstChild);
+      }
+    }, 200);
+  },
+  _displayResults: function(features) {
+    L.DomUtil.addClass(this._results, 'show-results');
+    for (var i = 0, l = Math.min(features.length, 5); i < l; i++) {
+      var feature = features[i];
+      var name = feature.place_name;
+      if (!name.length) continue;
+
+      var r = L.DomUtil.create('a', '', this._results);
+      var text = ('innerText' in r) ? 'innerText' : 'textContent';
+      r[text] = name;
+      r.href = '#';
+
+      (L.bind(function(feature) {
+        L.DomEvent.addListener(r, 'click', function(e) {
+          this._chooseResult(feature);
+          L.DomEvent.stop(e);
+          this.fire('select', { feature: feature });
+        }, this);
+      }, this))(feature);
+    }
+    if (features.length > 5) {
+      var outof = L.DomUtil.create('span', '', this._results);
+      outof.innerHTML = 'Top 5 of ' + features.length + '  results';
+    }
+  },
+});
