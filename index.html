@@ -18,6 +18,7 @@
     content: '';
   }
 
+  /* ALL MATERIAL CONTROLS */
   .leaflet-bar-mdl.leaflet-control {
     margin: 16px 16px 0 16px;
   }
@@ -31,19 +32,18 @@
     }
   }
 
+  /* MATERIAL LAYER CONTROL */
   li.mdl-menu__item label {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
   }
-
   .mdl-menu--divider {
     padding: 0 10px;
   }
   .mdl-menu--divider hr {
     padding: 0.5em;
   }
-
   .mdl-menu--bottom-right {
     margin-top: -40px !important;
     margin-left: -50px !important;
@@ -67,6 +67,69 @@
     margin-right: 50px !important;
   }
 
+/* MATERIAL GEOCODER CONTROL */
+  form.geocoder-form div.mdl-textfield, .leaflet-control-geocoder-results-mdl {
+    background-color: white;
+    padding: 10px;
+    padding-left: 12px;
+    overflow: hidden;
+    width: 300px;
+  }
+  .leaflet-control-geocoder-results-mdl {
+    padding: 5px 0 5px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s linear, visibility 0s linear 0.2s;
+  }
+  .leaflet-control-geocoder-results-mdl.show-results {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+  }
+  .leaflet-control-geocoder-results-mdl a {
+    display: block;
+    padding: 5px 10px 5px 10px;
+  }
+  .leaflet-control-geocoder-results-mdl a:hover {
+    background-color: #fafafa;
+  }
+  form.geocoder-form .mdl-textfield .mdl-textfield__label {
+    top: 12px;
+    padding-left: 12px;
+  }
+  form.geocoder-form .mdl-textfield .mdl-textfield__label:after {
+    bottom: 0;
+  }
+  form.geocoder-form .mdl-textfield.is-dirty .mdl-textfield__label {
+    visibility: visible;
+  }
+  form.geocoder-form .mdl-textfield .mdl-textfield__input {
+    border-bottom: none;
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+  form.geocoder-form .mdl-button.clear-search {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 5px;
+    visibility: hidden;
+  }
+  form.geocoder-form .is-dirty .mdl-button.clear-search {
+    visibility: visible;
+  }
+  form.geocoder-form .mdl-progress {
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+  }
+  .searching form.geocoder-form .mdl-progress {
+    visibility: visible;
+  }
+
 </style>
 </head>
 <body>
@@ -77,7 +140,7 @@
 <script src="leaflet-material.min.js"></script>
 <script>
   L.mapbox.accessToken = 'pk.eyJ1IjoiY3RpcHBldHQiLCJhIjoiS3lpTnN4MCJ9.YG_uH8r7IgwgcSWEPYROMA';
-  var map = L.mapbox.map('map', null ,{zoomControl: false, attributionControl: false})
+  var map = L.mapbox.map('map', null ,{zoomControl: false, attributionControl: true})
       .setView([38.8922,-77.0348], 14);
 
   var layers = {
@@ -90,9 +153,6 @@
     'Bike Lanes': L.mapbox.tileLayer('examples.bike-lanes')
   }
   layers.Streets.addTo(map);
-
-  // Set attribution to bottomleft
-  var attribution = L.control.attribution({position: 'bottomleft'}).addTo(map);
 
   // Search location (geocode) control
   var geocode = L.mapbox.geocoderControl('mapbox.places');
