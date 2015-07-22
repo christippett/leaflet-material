@@ -338,7 +338,7 @@ L.Control.MaterialGeocoderControl = L.mapbox.GeocoderControl.extend({
         while (results.firstChild) {
             results.removeChild(results.firstChild);
         };
-      }(this._results), 200);
+      }, 500, this._results);
     }
   },
   _displayResults: function(features) {
