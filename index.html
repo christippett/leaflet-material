@@ -31,14 +31,14 @@
 
   // initialise map
   L.mapbox.accessToken = 'pk.eyJ1IjoiY3RpcHBldHQiLCJhIjoiS3lpTnN4MCJ9.YG_uH8r7IgwgcSWEPYROMA';
-  var map = L.mapbox.map('map', null ,{zoomControl: false, attributionControl: false})
+  var map = L.mapbox.map('map', null ,{zoomControl: false, attributionControl: true})
       .setView([38.8922,-77.0348], 14);
 
   // define map layers
   var layers = {
     Streets: L.mapbox.tileLayer('mapbox.streets'),
-    Outdoors: L.mapbox.tileLayer('examples.ik7djhcc'),
-    Satellite: L.mapbox.tileLayer('examples.map-igb471ik')
+    Outdoors: L.mapbox.tileLayer('mapbox.outdoors'),
+    Satellite: L.mapbox.tileLayer('mapbox.satellite')
   };
 
   // define map overlays
