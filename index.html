@@ -5,8 +5,7 @@
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
 <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/leaflet.fullscreen.css' rel='stylesheet'>
+<link href='leaflet-material.min.css' rel='stylesheet'>
 
 <style>
   #map {
@@ -17,126 +16,6 @@
     right: 0;
     content: '';
   }
-
-  /* ALL MATERIAL CONTROLS */
-  .leaflet-bar-mdl.leaflet-control {
-    margin: 16px 16px 0 16px;
-  }
-  .leaflet-bar-mdl.leaflet-control button {
-    margin-bottom: 16px;
-    display: block;
-  }
-  @media (min-width: 840px) {
-    .leaflet-bar-mdl.leaflet-control {
-      margin: 24px 24px 0 24px;
-    }
-  }
-
-  /* MATERIAL LAYER CONTROL */
-  li.mdl-menu__item label {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .mdl-menu--divider {
-    padding: 0 10px;
-  }
-  .mdl-menu--divider hr {
-    padding: 0.5em;
-  }
-  .mdl-menu--bottom-right {
-    margin-top: -40px !important;
-    margin-left: -50px !important;
-    margin-right: 50px !important;
-  }
-  .mdl-menu--bottom-left {
-    margin-top: -40px !important; 
-    margin-left: 50px !important;
-    margin-right: -50px !important;
-  }
-  .mdl-menu--top-left {
-    margin-top: 40px !important; 
-    margin-bottom: -40px !important;
-    margin-left: 50px !important;
-    margin-right: -50px !important;
-  }
-  .mdl-menu--top-right {
-    margin-top: 40px !important; 
-    margin-bottom: -40px !important;
-    margin-left: -50px !important;
-    margin-right: 50px !important;
-  }
-
-/* MATERIAL GEOCODER CONTROL */
-  form.geocoder-form {
-    margin-bottom: 5px;
-  }
-  form.geocoder-form div.mdl-textfield, .leaflet-control-geocoder-results-mdl {
-    background-color: white;
-    padding: 10px;
-    padding-left: 12px;
-    overflow: hidden;
-    width: 70vw;
-    max-width: 300px;
-  }
-  form.geocoder-form div.mdl-textfield {
-    padding-right: 40px;
-  }
-  .leaflet-control-geocoder-results-mdl {
-    padding: 5px 0 5px 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s linear, visibility 0s linear 0.2s;
-  }
-  .leaflet-control-geocoder-results-mdl.show-results {
-    visibility: visible;
-    opacity: 1;
-    transition-delay: 0s;
-  }
-  .leaflet-control-geocoder-results-mdl > * {
-    display: block;
-    padding: 5px 10px 5px 10px;
-  }
-  .leaflet-control-geocoder-results-mdl a:hover {
-    background-color: #fafafa;
-  }
-  form.geocoder-form .mdl-textfield .mdl-textfield__label {
-    top: 12px;
-    padding-left: 12px;
-  }
-  form.geocoder-form .mdl-textfield .mdl-textfield__label:after {
-    bottom: 0;
-  }
-  form.geocoder-form .mdl-textfield.is-dirty .mdl-textfield__label {
-    visibility: visible;
-  }
-  form.geocoder-form .mdl-textfield .mdl-textfield__input {
-    border-bottom: none;
-    padding-left: 35px;
-  }
-  form.geocoder-form .mdl-button.clear-search {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-right: 5px;
-    visibility: hidden;
-  }
-  form.geocoder-form .is-dirty .mdl-button.clear-search {
-    visibility: visible;
-  }
-  form.geocoder-form .mdl-progress {
-    height: 2px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    visibility: hidden;
-  }
-  .searching form.geocoder-form .mdl-progress {
-    visibility: visible;
-  }
-
-</style>
 </head>
 <body>
 <div id='map'></div>
@@ -177,16 +56,16 @@
   }
 
   // Material zoom control:
-  var materialZoomControl = new L.Control.MaterialZoom({position: 'topright'}).addTo(map);
+  var materialZoomControl = new L.materialControl.Zoom({position: 'topright'}).addTo(map);
 
   // Material fullscreen control:
-  var materialFullscreen = new L.Control.MaterialFullscreen({position: 'topright'}).addTo(map);
+  var materialFullscreen = new L.materialControl.Fullscreen({position: 'topright'}).addTo(map);
 
   // Material layer control:
-  var materialLayerControl = new L.Control.MaterialLayers(layers, overlays, {position: 'bottomright', materialOptions: materialOptions}).addTo(map);
+  var materialLayerControl = new L.materialControl.Layers(layers, overlays, {position: 'bottomright', materialOptions: materialOptions}).addTo(map);
 
   // Search location (geocode) control
-  var materialGeocodeControl =  new L.Control.MaterialGeocoderControl('mapbox.places', {position: 'topleft'}).addTo(map);
+  var materialGeocodeControl =  new L.materialControl.Geocoder('mapbox.places', {position: 'topleft'}).addTo(map);
 
 </script>
 </body>
