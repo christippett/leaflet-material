@@ -1,5 +1,0 @@
-[submodule "lib/material-design-lite"]
-	path = lib/material-design-lite
-	url = https://github.com/google/material-design-lite.git
-[submodule "material-design-lite"]
-	branch = release

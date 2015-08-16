@@ -1,0 +1,78 @@
+/* MATERIAL GEOCODER CONTROL */
+form.geocoder-form {
+  margin-bottom: 5px;
+
+  .mdl-button.clear-search {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 5px;
+    visibility: hidden;
+  }
+
+  .mdl-progress {
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+  }
+
+  .mdl-textfield, .leaflet-control-geocoder-results-mdl {
+    background-color: white;
+    padding: 10px;
+    padding-left: 12px;
+    overflow: hidden;
+    width: 70vw;
+    max-width: 300px;
+  }
+
+  .mdl-textfield {
+    padding-right: 40px;
+
+    .mdl-textfield__label {
+      top: 12px;
+      padding-left: 12px;
+    }
+
+    .mdl-textfield__label:after {
+      bottom: 0;
+    }
+
+    .is-dirty {
+      .mdl-textfield__label, .mdl-button.clear-search {
+        visibility: visible;
+      }
+    }
+
+    .mdl-textfield__input {
+      border-bottom: none;
+      padding-left: 35px;
+    }
+  }
+}
+.leaflet-control-geocoder-results-mdl {
+  padding: 5px 0 5px 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s linear, visibility 0s linear 0.2s;
+
+  .show-results {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+  }
+
+  > * {
+    display: block;
+    padding: 5px 10px 5px 10px;
+  }
+
+  a:hover {
+    background-color: #fafafa;
+  }
+}
+.searching form.geocoder-form .mdl-progress {
+  visibility: visible;
+}
