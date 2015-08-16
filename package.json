@@ -53,7 +53,7 @@
     "mdl"
   ],
   "author": "Chris Tippett",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/christippett/leaflet-material/issues"
   },
