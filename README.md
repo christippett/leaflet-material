@@ -13,7 +13,7 @@ A demo including all of the included controls is [available here](http://christi
 ## Ready-to-go files
 Use the `leaflet-material.min.css` and `leaflet-material.min.js` files located in the `dist/` folder.
 
-```
+```html
 <script src="leaflet-material.min.js"></script>
 <link href='leaflet-material.min.css' rel='stylesheet' />
 ```
@@ -21,20 +21,20 @@ Use the `leaflet-material.min.css` and `leaflet-material.min.js` files located i
 Requires css and javascript files from Leaflet/Mapbox and Material Design Lite. Note: [Leaflet-Fullscreen](https://github.com/Leaflet/Leaflet.fullscreen) is already included in the distribution and isn't required to be referenced externally.
 
 [Material Design Lite](http://www.getmdl.io/started/index.html#download)
-```
+```html
 <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.indigo-pink.min.css" />
 <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 ```
 
 [Mapbox](https://www.mapbox.com/mapbox.js/api/v2.2.1/)
-```
+```html
 <script src='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
 <link href='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
 ```
 
 [Leaflet](http://leafletjs.com/download.html)
-```
+```html
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 ```
@@ -55,20 +55,20 @@ You can swap the default controls for the material ones as followed:
 * `L.mapbox.GeocoderControl` -> `L.materialControl.Geocoder`
 
 Example:
-```
+```js
 // Material zoom control:
 var materialZoomControl = new L.materialControl.Zoom({position: 'topright', materialOptions: materialOptions}).addTo(map);
 ```
 
 Lowercase shortcuts are also included that allow you to create controls without the new keyword.
-```
+```js
 L.materialControl.zoom({position: 'topright', materialOptions: materialOptions}).addTo(map);
 ```
 
 ## Options
 `L.Control` has been extended to include additional options specific to leaflet-material. These options allow you to specify the type of material button to be used, whether tooltips should be included or if the ripple effect should be applied. 
 
-```
+```js
 var materialOptions = {
   fab: true,
   miniFab: true,
