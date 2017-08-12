@@ -2,6 +2,14 @@
 
 var L = require('leaflet');
 
+if(!L.mapbox) {
+  console.error('Mapbox is not defined.  Geocoder control will not be available');
+  module.exports.MaterialGeocoderControl = undefined;
+  module.exports.materialGeocoderControl = undefined;
+
+  return;
+}
+
 var MaterialGeocoderControl = L.mapbox.GeocoderControl.extend({
   onAdd: function(map) {
     var container = L.DomUtil.create('div', 'leaflet-control-geocoder-mdl leaflet-bar-mdl leaflet-control'),
