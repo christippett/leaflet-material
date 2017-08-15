@@ -3,7 +3,6 @@
 var L = require('leaflet');
 
 if(!L.mapbox) {
-  console.error('Mapbox is not defined.  Geocoder control will not be available');
   module.exports.MaterialGeocoderControl = undefined;
   module.exports.materialGeocoderControl = undefined;
 
