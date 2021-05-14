@@ -33,7 +33,7 @@ L.Control.include({
     return toolTipNode;
   },
   _createMaterialButton: function (idTag, iconText, title, container, optionalClass) {
-    var materialClass = "mdl-button mdl-js-button mdl-button--icon",
+    var materialClass = "mdl-button mdl-js-button mdl-button--icon mdl-shadow--8dp",
       materialOptions = this._setDefaultOptions(),
       button = L.DomUtil.create("button", materialClass, container);
 

@@ -10,8 +10,8 @@ export var MaterialZoomControl = L.Control.Zoom.extend({
     var container = L.DomUtil.create("div", "leaflet-control-zoom-mdl leaflet-bar-mdl"),
       options = this.options;
 
-    options.zoomInText = options.zoomInText === "+" ? "add" : options.zoomInText;
-    options.zoomOutText = options.zoomOutText === "−" ? "remove" : options.zoomOutText;
+    options.zoomInText = options.zoomInText == "+" ? "add" : options.zoomInText;
+    options.zoomOutText = options.zoomOutText == "&#x2212;" ? "remove" : options.zoomOutText;
 
     this._zoomInButton = this._createMaterialButton(
       "leaflet-zoom-in-mdl",
