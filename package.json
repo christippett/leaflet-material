@@ -3,17 +3,6 @@
   "version": "1.1.0",
   "description": "Leaflet controls inspired by Google's material design and using the material-design-lite framework.",
   "main": "src/leaflet-material.js",
-  "browser": {
-    "material-control": "./src/material_control/material_control.js"
-  },
-  "browserify-shim": {
-    "leaflet": "global:L"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.12.1",
     "leaflet-fullscreen": "1.0.2",

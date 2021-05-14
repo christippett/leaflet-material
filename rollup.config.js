@@ -7,7 +7,7 @@ export default {
   output: [
     {
       file: "dist/leaflet-material.js",
-      format: "esm",
+      format: "iife",
     },
   ],
   plugins: [
