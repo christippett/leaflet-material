@@ -1,4 +1,4 @@
-# leaflet-material
+# Leaflet Material Controls
 
 Leaflet controls implemented using Google's [Material Design Lite](http://www.getmdl.io/) framework.
 
