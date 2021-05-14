@@ -1,74 +1,114 @@
 <html>
-<head>
-<meta charset=utf-8 />
-<title>Leaflet Material Demo</title>
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
-<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
-<link href='leaflet-material.min.css' rel='stylesheet'>
+  <head>
+    <meta charset="utf-8" />
+    <title>Leaflet Material Demo</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Roboto" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <link
+      href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
+    <link href="dist/leaflet-material.css" rel="stylesheet" />
 
-<style>
-  #map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    content: '';
-  }
-</style>
-</head>
-<body>
-<div id='map'></div>
-<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Roboto">
-<script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
-<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/Leaflet.fullscreen.min.js'></script>
-<script src="leaflet-material.min.js"></script>
-<script>
-  // change default position for attribution to bottom left
-  L.Control.Attribution.prototype.options.position = "bottomleft";
+    <style>
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        content: "";
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
 
-  // initialise map
-  L.mapbox.accessToken = 'pk.eyJ1IjoiY3RpcHBldHQiLCJhIjoiS3lpTnN4MCJ9.YG_uH8r7IgwgcSWEPYROMA';
-  var map = L.mapbox.map('map', null ,{zoomControl: false, attributionControl: true})
-      .setView([38.8922,-77.0348], 14);
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
-  // define map layers
-  var layers = {
-    Streets: L.mapbox.tileLayer('mapbox.streets'),
-    Outdoors: L.mapbox.tileLayer('mapbox.outdoors'),
-    Satellite: L.mapbox.tileLayer('mapbox.satellite')
-  };
+    <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
+    <script src="dist/leaflet-material.js"></script>
+    <script>
+      const accessToken =
+        "pk.eyJ1IjoiY3RpcHBldHQiLCJhIjoiY2ttdXlxMWdjMDAxYTMwcm5xNDR0dHNodSJ9.Oo0PYn51NEScg34hin1YZA";
+      const tileURL =
+        "https://api.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}";
+      const styleURL =
+        "https://api.mapbox.com/styles/v1/{id}/tiles/{tileSize}/{z}/{x}/{y}@2x?access_token={accessToken}";
 
-  // define map overlays
-  var overlays = {
-    'Bike Stations': L.mapbox.tileLayer('examples.bike-locations'),
-    'Bike Lanes': L.mapbox.tileLayer('examples.bike-lanes')
-  }
-  layers.Streets.addTo(map);
+      const attribution =
+        '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 
+      function tileLayer(id, url) {
+        return L.tileLayer(url, {
+          id,
+          attribution,
+          maxZoom: 18,
+          tileSize: 512,
+          zoomOffset: -1,
+          accessToken: accessToken,
+        });
+      }
 
-  var materialOptions = {
-    fab: true,
-    miniFab: true,
-    rippleEffect: true,
-    toolTips: false,
-    color: 'primary'
-  }
+      var layers = {
+        Streets: tileLayer("mapbox/streets-v11", styleURL),
+        Outdoors: tileLayer("mapbox/outdoors-v11", styleURL),
+        Satellite: tileLayer("mapbox/satellite-v9", styleURL),
+      };
 
-  // Material zoom control:
-  var materialZoomControl = new L.materialControl.Zoom({position: 'topright'}).addTo(map);
+      var overlays = {
+        "Bike Stations": tileLayer("examples.bike-locations", tileURL),
+        "Bike Lanes": tileLayer("examples.bike-lanes", tileURL),
+        "Australian Supermarkets": tileLayer("ctippett.4623f4ef", tileURL),
+      };
 
-  // Material fullscreen control:
-  var materialFullscreen = new L.materialControl.Fullscreen({position: 'topright'}).addTo(map);
+      L.Control.Attribution.prototype.options.position = "bottomleft";
 
-  // Material layer control:
-  var materialLayerControl = new L.materialControl.Layers(layers, overlays, {position: 'bottomright', materialOptions: materialOptions}).addTo(map);
+      var map = L.map("map", null, { zoomControl: false, attributionControl: true });
+      map.setView([38.8922, -77.0348], 14);
 
-  // Search location (geocode) control
-  var materialGeocodeControl =  new L.materialControl.Geocoder('mapbox.places', {position: 'topleft'}).addTo(map);
+      layers.Streets.addTo(map);
 
-</script>
-</body>
+      var materialOptions = {
+        fab: true,
+        miniFab: true,
+        rippleEffect: true,
+        toolTips: false,
+        color: "primary",
+      };
+
+      // Material zoom control:
+      var materialZoomControl = new L.materialControl.Zoom({ position: "topright" });
+      materialZoomControl.addTo(map);
+
+      // Material fullscreen control:
+      var materialFullscreen = new L.materialControl.Fullscreen({ position: "topright" });
+      materialFullscreen.addTo(map);
+
+      // Material layer control:
+      var materialLayerControl = new L.materialControl.Layers(layers, overlays, {
+        position: "bottomright",
+        materialOptions: materialOptions,
+      });
+      materialLayerControl.addTo(map);
+
+      // Search location (geocode) control
+      var materialGeocodeControl = new L.materialControl.Geocoder("mapbox.places", {
+        position: "topleft",
+      });
+      materialGeocodeControl.addTo(map);
+    </script>
+  </body>
 </html>
