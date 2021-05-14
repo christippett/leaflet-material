@@ -1,3 +1,4 @@
+import replace from "@rollup/plugin-replace";
 import scss from "rollup-plugin-scss";
 import { terser } from "rollup-plugin-terser";
 
@@ -15,5 +16,10 @@ export default {
       sass: require("sass"),
       outputStyle: "compressed",
     }),
+    replace({
+      preventAssignment: true,
+      __VERSION__: require("./package.json").version,
+    }),
   ],
+  shimMissingExports: true,
 };
