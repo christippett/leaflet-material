@@ -67,7 +67,7 @@
       L.mapbox.accessToken = accessToken;
       L.Control.Attribution.prototype.options.position = "bottomleft";
 
-      var map = L.map("map", null, { zoomControl: false, attributionControl: true });
+      var map = L.map("map", { zoomControl: false, attributionControl: true });
       map.setView([38.8922, -77.0348], 14);
 
       layers.Streets.addTo(map);
