@@ -19,29 +19,26 @@ form.geocoder-form {
     visibility: hidden;
   }
 
-  .mdl-textfield,
-  .leaflet-control-geocoder-results-mdl {
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 4px;
-    padding: 10px;
-    padding-left: 12px;
-    overflow: hidden;
-    width: 70vw;
-    max-width: 300px;
-  }
-
   .mdl-textfield {
-    padding-right: 40px;
+    padding: 20px 15px;
+    border-radius: 10px;
+    transition: all 0.4s ease-in;
 
-    .mdl-textfield__label {
-      top: 12px;
-      padding-left: 12px;
+    &.is-focused,
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     }
 
-    .mdl-textfield__label:after {
-      bottom: 0;
+    > .mdl-button--icon {
+      margin-right: 20px;
+    }
+
+    &.is-focused .mdl-textfield__expandable-holder {
+      margin-right: 20px;
+      padding-left: 10px;
     }
 
     .is-dirty {
@@ -49,11 +46,6 @@ form.geocoder-form {
       .mdl-button.clear-search {
         visibility: visible;
       }
-    }
-
-    .mdl-textfield__input {
-      border-bottom: none;
-      padding-left: 35px;
     }
   }
 }

@@ -15,28 +15,24 @@ export var MaterialGeocoderControl = L.mapbox.GeocoderControl.extend({
       form = L.DomUtil.create("form", "geocoder-form", container),
       textField = L.DomUtil.create(
         "div",
-        "mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-shadow--8dp",
+        "mdl-textfield mdl-js-textfield mdl-textfield--expandable",
         form
       ),
-      textFieldHolder = L.DomUtil.create("div", "mdl-textfield__expandable-holder", textField),
-      input = L.DomUtil.create("input", "mdl-textfield__input", textFieldHolder),
-      label = L.DomUtil.create("label", "mdl-textfield__label", textFieldHolder),
       buttonLabel = L.DomUtil.create(
         "label",
         "mdl-button mdl-js-button mdl-button--icon",
         textField
       ),
       icon = L.DomUtil.create("i", "material-icons", buttonLabel),
+      textFieldHolder = L.DomUtil.create("div", "mdl-textfield__expandable-holder", textField),
+      input = L.DomUtil.create("input", "mdl-textfield__input", textFieldHolder),
+      label = L.DomUtil.create("label", "mdl-textfield__label", textFieldHolder),
       progressBar = L.DomUtil.create(
         "div",
         "mdl-progress mdl-js-progress mdl-progress__indeterminate",
         textField
       ),
-      results = L.DomUtil.create(
-        "div",
-        "leaflet-control-geocoder-results-mdl mdl-shadow--8dp",
-        container
-      );
+      results = L.DomUtil.create("div", "leaflet-control-geocoder-results-mdl", container);
 
     icon.innerHTML = "search";
     label.setAttribute("for", "mapbox-geocoder-mdl");
