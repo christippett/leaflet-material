@@ -24,7 +24,7 @@ export var MaterialGeocoderControl = L.mapbox.GeocoderControl.extend({
       buttonLabel = L.DomUtil.create(
         "label",
         "mdl-button mdl-js-button mdl-button--icon",
-        textFieldHolder
+        textField
       ),
       icon = L.DomUtil.create("i", "material-icons", buttonLabel),
       progressBar = L.DomUtil.create(
