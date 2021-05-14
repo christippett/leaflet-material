@@ -14,7 +14,7 @@ import materialControl from "./material_control/material_control.js";
 import { materialZoomControl, MaterialZoomControl } from "./zoom_control/zoom_control.js";
 import "./_leaflet-material-mdl.scss";
 
-module.exports = window.L.materialControl = {
+export var mdlControl = {
   VERSION: "__VERSION__",
   Control: materialControl,
   fullscreen: materialFullscreenControl,
@@ -26,3 +26,5 @@ module.exports = window.L.materialControl = {
   geocoder: materialGeocoderControl,
   Geocoder: MaterialGeocoderControl,
 };
+
+window.L.materialControl = mdlControl;

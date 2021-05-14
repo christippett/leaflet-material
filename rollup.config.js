@@ -7,6 +7,7 @@ export default {
   output: [
     {
       file: "dist/leaflet-material.js",
+      name: "mdlControl",
       format: "iife",
     },
   ],
