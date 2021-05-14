@@ -19,8 +19,12 @@ form.geocoder-form {
     visibility: hidden;
   }
 
-  .mdl-textfield, .leaflet-control-geocoder-results-mdl {
-    background-color: white;
+  .mdl-textfield,
+  .leaflet-control-geocoder-results-mdl {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 4px;
     padding: 10px;
     padding-left: 12px;
     overflow: hidden;
@@ -41,7 +45,8 @@ form.geocoder-form {
     }
 
     .is-dirty {
-      .mdl-textfield__label, .mdl-button.clear-search {
+      .mdl-textfield__label,
+      .mdl-button.clear-search {
         visibility: visible;
       }
     }

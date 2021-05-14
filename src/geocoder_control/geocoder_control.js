@@ -13,16 +13,20 @@ export var MaterialGeocoderControl = L.mapbox.GeocoderControl.extend({
         "leaflet-control-geocoder-mdl leaflet-bar-mdl leaflet-control"
       ),
       form = L.DomUtil.create("form", "geocoder-form", container),
-      textField = L.DomUtil.create("div", "mdl-textfield mdl-js-textfield mdl-shadow--2dp", form),
-      input = L.DomUtil.create("input", "mdl-textfield__input", textField),
-      label = L.DomUtil.create("label", "mdl-textfield__label", textField),
-      icon = L.DomUtil.create("i", "material-icons", label),
-      clearSearchButton = L.DomUtil.create(
-        "button",
-        "mdl-button mdl-js-button mdl-button--icon clear-search",
-        textField
+      textField = L.DomUtil.create(
+        "div",
+        "mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-shadow--8dp",
+        form
       ),
-      clearSearchIcon = L.DomUtil.create("i", "material-icons", clearSearchButton),
+      textFieldHolder = L.DomUtil.create("div", "mdl-textfield__expandable-holder", textField),
+      input = L.DomUtil.create("input", "mdl-textfield__input", textFieldHolder),
+      label = L.DomUtil.create("label", "mdl-textfield__label", textFieldHolder),
+      buttonLabel = L.DomUtil.create(
+        "label",
+        "mdl-button mdl-js-button mdl-button--icon",
+        textFieldHolder
+      ),
+      icon = L.DomUtil.create("i", "material-icons", buttonLabel),
       progressBar = L.DomUtil.create(
         "div",
         "mdl-progress mdl-js-progress mdl-progress__indeterminate",
@@ -30,22 +34,19 @@ export var MaterialGeocoderControl = L.mapbox.GeocoderControl.extend({
       ),
       results = L.DomUtil.create(
         "div",
-        "leaflet-control-geocoder-results-mdl mdl-shadow--2dp",
+        "leaflet-control-geocoder-results-mdl mdl-shadow--8dp",
         container
       );
 
     icon.innerHTML = "search";
-    clearSearchIcon.innerHTML = "close";
     label.setAttribute("for", "mapbox-geocoder-mdl");
+    buttonLabel.setAttribute("for", "mapbox-geocoder-mdl");
     input.setAttribute("id", "mapbox-geocoder-mdl");
     input.type = "text";
     input.setAttribute("placeholder", "Search...");
 
     // L.DomUtil.addClass(results, 'show-results');
     // this._map.on('click', this._closeResults, this);
-
-    clearSearchButton.type = "button";
-    L.DomEvent.addListener(clearSearchButton, "click", this._clearSearch, this);
 
     L.DomEvent.addListener(form, "submit", this._geocode, this);
     L.DomEvent.addListener(input, "keyup", this._autocomplete, this);
