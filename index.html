@@ -64,6 +64,7 @@
         "Australian Supermarkets": tileLayer("ctippett.4623f4ef", tileURL),
       };
 
+      L.mapbox.accessToken = accessToken;
       L.Control.Attribution.prototype.options.position = "bottomleft";
 
       var map = L.map("map", null, { zoomControl: false, attributionControl: true });
